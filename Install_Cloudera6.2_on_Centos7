@@ -33,4 +33,6 @@
     GRANT ALL ON navms.* TO 'navms'@'%' IDENTIFIED BY 'navms';
     GRANT ALL ON oozie.* TO 'oozie'@'%' IDENTIFIED BY 'oozie';
     
- 
+  2.2 Step 5 Set up the Cloudera Manager Database
+    sudo /opt/cloudera/cm/schema/scm_prepare_database.sh mysql scm scm scm
+    
