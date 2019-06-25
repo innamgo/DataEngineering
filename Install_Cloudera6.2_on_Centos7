@@ -1,0 +1,36 @@
+1. Guide Link
+  https://www.cloudera.com/documentation/enterprise/6/latest/topics/installation.html
+
+2. Step 4 Creating databases for Cloudera software
+  2.1 MariaDB
+    CREATE DATABASE scm DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+    CREATE DATABASE amon DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+    CREATE DATABASE rman DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+    CREATE DATABASE hue DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+    CREATE DATABASE metastore DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+    CREATE DATABASE sentry DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+    CREATE DATABASE nav DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+    CREATE DATABASE navms DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+    CREATE DATABASE oozie DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+
+    create user 'scm'@'%' identified by 'scm';
+    create user 'amon'@'%' identified by 'amon';
+    create user 'rman'@'%' identified by 'rman';
+    create user 'hue'@'%' identified by 'hue';
+    create user 'metastore'@'%' identified by 'metastore';
+    create user 'sentry'@'%' identified by 'sentry';
+    create user 'nav'@'%' identified by 'nav';
+    create user 'navms'@'%' identified by 'navms';
+    create user 'oozie'@'%' identified by 'oozie';
+
+    GRANT ALL ON scm.* TO 'scm'@'%' IDENTIFIED BY 'scm';
+    GRANT ALL ON amon.* TO 'amon'@'%' IDENTIFIED BY 'amon';
+    GRANT ALL ON rman.* TO 'rman'@'%' IDENTIFIED BY 'rman';
+    GRANT ALL ON hue.* TO 'hue'@'%' IDENTIFIED BY 'hue';
+    GRANT ALL ON metastore.* TO 'metastore'@'%' IDENTIFIED BY 'metastore';
+    GRANT ALL ON sentry.* TO 'sentry'@'%' IDENTIFIED BY 'sentry';
+    GRANT ALL ON nav.* TO 'nav'@'%' IDENTIFIED BY 'nav';
+    GRANT ALL ON navms.* TO 'navms'@'%' IDENTIFIED BY 'navms';
+    GRANT ALL ON oozie.* TO 'oozie'@'%' IDENTIFIED BY 'oozie';
+    
+ 
