@@ -1,0 +1,35 @@
+1. Virtual Env
+pyhton3 -m venv 프로젝트명
+source 프로젝트명/bin/activate
+
+2. 패키지 배포
+ 1) EGG 파일 : python3 setup.py bdist_egg
+ 2) ZIP 파일 : python3 setup.py bdist --format=zip
+ 
+3. setuptools setup.py sample
+
+from setuptools import setup, find_packages
+import pkg_resources
+
+install_requires = [
+    'aws_encryption_sdk==1.4.1',
+    'attr==19.3.0',
+    'pycparser==2.19',
+    'cffi==1.13.2',
+    'cryptography==2.8',
+    'wrapt==1.11.2',
+    'jmespath==0.9.4',
+    's3transfer==0.2.1',
+    'boto3==1.10.12',
+    ]
+
+setup(name="aws_encryption_sdk"
+,version="1.4.1",
+packages=find_packages(),
+eager_resources=['cryptography/hazmat/bindings/_constant_time.abi3.so'],
+package_data = {'cryptography':['hazmat/bindings/*.so']},
+install_requires=install_requires)
+
+
+my_data = pkg_resources.resource_string(__name__, "cryptography/hazmat/bindings/_constant_time.abi3.so")
+
