@@ -33,3 +33,18 @@ install_requires=install_requires)
 
 my_data = pkg_resources.resource_string(__name__, "cryptography/hazmat/bindings/_constant_time.abi3.so")
 
+##간단한 패키징
+
+python3 -m venv my/env
+source ~/my/evn/bin/activate
+pip install pip --upgrade
+pip3 install requests -t .
+python3 setup.py bdist_egg
+
+from setuptools import setup, find_packages
+
+setup(
+    name = "requests",
+    version = "2.22.0",
+    packages = find_packages()
+    )
