@@ -1,0 +1,7 @@
+1. get list of remote branch.
+> git branch -r
+  origin/HEAD -> origin/master
+  origin/feature1
+  origin/master
+2. checkout remote branch.
+> git checkout origin/feature1
