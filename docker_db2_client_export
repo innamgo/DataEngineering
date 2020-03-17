@@ -1,0 +1,49 @@
+1. Install docker engine
+https://docs.aws.amazon.com/ko_kr/AmazonECS/latest/developerguide/docker-basics.html
+
+2. IBM DB2 Dataware house Image pull
+docker pull store/ibmcorp/db2wh_ce:v11.5.2.0-db2wh_client-linux
+
+3. run the image
+docker run -dit --net=host -v /mnt/tools:/mnt/clientdir --name=client4 store/ibmcorp/db2wh_ce:v11.5.2.0-db2wh_client-linux
+
+4. bash shell connect
+docker exec -it 7b63c563fe5a /bin/bash
+
+5. install aws cli tool
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+aws configure
+
+6. DB2 client odbc configure
+
+/opt/ibm/db2/V11.5/bin
+/opt/ibm/db2/V11.5/bin/db2 catalog tcpip node IIAS remote 127.0.0.1 server 50000
+/opt/ibm/db2/V11.5/bin/db2 catalog db BLUDB as NZSQL at node IIAS
+/opt/ibm/db2/V11.5/bin/db2 catalog system odbc data source NZSQL
+/opt/ibm/db2/V11.5/bin/db2 list node directory
+/opt/ibm/db2/V11.5/bin/db2 list db directory
+
+odbcinst -j
+
+7. modify /etc/odbcinst.ini 
+#add following lines
+[Db2]
+Description = Db2 Driver
+Driver = /mnt/clientdir/clienthome/db2inst1/sqllib/lib/libdb2o.so
+fileusage = 1
+dontdlclose =1
+
+modify /root/.odbc.ini
+#add following lines
+[NZSQL]
+Description = BLUDB
+Driver = /mnt/clientdir/clienthome/db2inst1/sqllib/lib/libdb2o.so
+database = BLUDB
+
+8. db2 sql
+connect to NZSQL USER "username" USING "passsword"
+SELECT 'start_time', to_char(sysdate,'YYYYMMDD HH24:MI:ss') FROM SYSIBM.SYSDUMMY1
+export to /test.csv of del modified by chardel"" coldel| select * from testtable LIMIT 10000 WITH UR
+SELECT 'end_time', to_char(sysdate,'YYYYMMDD HH24:MI:ss') FROM SYSIBM.SYSDUMMY1
