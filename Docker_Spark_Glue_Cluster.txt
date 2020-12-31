@@ -1,4 +1,9 @@
 
+도커 커밋 / 푸시
+#docker commit -a "코멘트" 컨테이너이름 저장소/이름:버전
+docker commit -a "glue spark jupyter notebook" glue_master megazonecloud/dsc_glue_dev:2.0
+docker push megazonecloud/dsc_glue_dev:2.0
+
 스파크 클러스터 스탠드얼론
 docker network create -d bridge spark-bridge-network
 브릿지 네트워크로 생성
