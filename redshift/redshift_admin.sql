@@ -51,3 +51,9 @@ FROM
 	)
 WHERE sel = true or ins = true or upd = true or del = true or ref = true;
          
+3. alter distkey, sortkey
+alter table schema_name.table_name alter diststyle key distkey column_name;
+alter table schema_name.table_name alter compound sortkey (column_name);
+alter table schema_name.table_name alter interleaved sortkey (column_name);
+		 
+		 
