@@ -30,3 +30,24 @@ SELECT
 FROM skew_degree JOIN svv_table_info ti ON ti.table_id = tbl
 WHERE slice_skew_degree >= 0.50 ORDER BY advisor_flagged DESC, slice_skew_degree DESC;
 
+2. get privilege by user name
+SELECT
+	* 
+FROM 
+	(
+	SELECT 
+		schemaname
+		,tablename
+		,usename
+		,HAS_TABLE_PRIVILEGE(usrs.usename, obj, 'select') AS sel
+		,HAS_TABLE_PRIVILEGE(usrs.usename, obj, 'insert') AS ins
+		,HAS_TABLE_PRIVILEGE(usrs.usename, obj, 'update') AS upd
+		,HAS_TABLE_PRIVILEGE(usrs.usename, obj, 'delete') AS del
+		,HAS_TABLE_PRIVILEGE(usrs.usename, obj, 'references') AS ref
+	FROM
+		(SELECT schemaname, tablename, '\"' + schemaname + '\"' + '.' + '\"' + tablename + '\"' AS obj FROM pg_tables where schemaname not in ('pg_internal')) AS objs
+		,(SELECT * FROM pg_user where usename = 'hahaha') AS usrs
+	ORDER BY obj
+	)
+WHERE sel = true or ins = true or upd = true or del = true or ref = true;
+         
