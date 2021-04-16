@@ -31,22 +31,40 @@ FROM skew_degree JOIN svv_table_info ti ON ti.table_id = tbl
 WHERE slice_skew_degree >= 0.50 ORDER BY advisor_flagged DESC, slice_skew_degree DESC;
 
 2. get privilege by user name
+
 SELECT
-	* 
+	*
+	,(case when sel = True and ins = True 
+    		and upd = True and del = True
+    		and ref = True then 'grant all on table '||schemaname||'.'||tablename||' to '||usename||';'
+     	  when sel = True and ins = False 
+    		and upd = False and del = False
+    		and ref = False then 'grant select on table '||schemaname||'.'||tablename||' to '||usename||';'
+    	  when sel = True and ins = True 
+    		and upd = False and del = False
+    		and ref = False then 'grant select,insert on table '||schemaname||'.'||tablename||' to '||usename||';'
+    	  when sel = True and ins = True 
+    		and upd = True and del = False
+    		and ref = False then 'grant select,insert,update on table '||schemaname||'.'||tablename||' to '||usename||';'
+    	  when sel = True and ins = True 
+    		and upd = True and del = True
+    		and ref = False then 'grant select,insert,update,delete on table '||schemaname||'.'||tablename||' to '||usename||';'
+      else '-' end) as grant_sql
 FROM 
 	(
 	SELECT 
 		schemaname
 		,tablename
 		,usename
-		,HAS_TABLE_PRIVILEGE(usrs.usename, obj, 'select') AS sel
-		,HAS_TABLE_PRIVILEGE(usrs.usename, obj, 'insert') AS ins
-		,HAS_TABLE_PRIVILEGE(usrs.usename, obj, 'update') AS upd
-		,HAS_TABLE_PRIVILEGE(usrs.usename, obj, 'delete') AS del
-		,HAS_TABLE_PRIVILEGE(usrs.usename, obj, 'references') AS ref
+		,HAS_TABLE_PRIVILEGE(u.usename, obj, 'select') AS sel
+		,HAS_TABLE_PRIVILEGE(u.usename, obj, 'insert') AS ins
+		,HAS_TABLE_PRIVILEGE(u.usename, obj, 'update') AS upd
+		,HAS_TABLE_PRIVILEGE(u.usename, obj, 'delete') AS del
+		,HAS_TABLE_PRIVILEGE(u.usename, obj, 'references') AS ref
 	FROM
-		(SELECT schemaname, tablename, '\"' + schemaname + '\"' + '.' + '\"' + tablename + '\"' AS obj FROM pg_tables where schemaname not in ('pg_internal')) AS objs
-		,(SELECT * FROM pg_user where usename = 'hahaha') AS usrs
+		(SELECT schemaname, tablename, '\"' + schemaname + '\"' + '.' + '\"' + tablename + '\"' AS obj FROM pg_tables 
+			where schemaname not in ('pg_internal') and tablename in ('table_name_test') ) AS t
+		,(SELECT * FROM pg_user ) AS u
 	ORDER BY obj
 	)
 WHERE sel = true or ins = true or upd = true or del = true or ref = true;
