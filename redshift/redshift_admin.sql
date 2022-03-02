@@ -75,3 +75,7 @@ alter table schema_name.table_name alter compound sortkey (column_name);
 alter table schema_name.table_name alter interleaved sortkey (column_name);
 		 
 		 
+4. user
+create user user_id password 'test_pass';
+ALTER USER user_id SET timezone to 'Asia/Seoul';
+ALTER USER user_id SET search_path to 'test_schema';
