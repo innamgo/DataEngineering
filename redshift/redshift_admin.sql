@@ -79,3 +79,11 @@ alter table schema_name.table_name alter interleaved sortkey (column_name);
 create user user_id password 'test_pass';
 ALTER USER user_id SET timezone to 'Asia/Seoul';
 ALTER USER user_id SET search_path to 'test_schema','test_schema1','test_schema2';
+
+SELECT 
+	pg_group.groname
+	,pg_group.grosysid
+	,pg_user.*
+FROM pg_group, pg_user 
+WHERE pg_user.usesysid = ANY(pg_group.grolist) 
+ORDER BY 1,2 
