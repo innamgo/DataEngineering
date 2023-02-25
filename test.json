@@ -1,5 +1,5 @@
 [
-{"name":"PSS","size":1880,"imports":["PSS"]},
+{"name":"PSS","size":1880,"imports":""},
 {"name":"KIS","size":1880,"imports":["PSS"]},
 {"name":"KSALES","size":1880,"imports":["PSS"]},
 {"name":"BR","size":1880,"imports":["PSS"]},
