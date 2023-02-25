@@ -1,0 +1,9 @@
+[
+{"name":"KIS","size":1880,"imports":["PSS"]},
+{"name":"KSALES","size":1880,"imports":["PSS"]},
+{"name":"BR","size":1880,"imports":["PSS"]},
+{"name":"NA","size":1880,"imports":["PSS"]},
+{"name":"PA","size":1880,"imports":["PSS"]},
+{"name":"PNService","size":1880,"imports":["PSS"]},
+{"name":"ODRM","size":1880,"imports":["PA"]}
+]
