@@ -1,0 +1,5 @@
+1. Rancher 또는 Docker 설치, Dockerd
+2. Python, Git, AWS CLI 설치
+3. JupyterLab 설치
+4. SageMaker SDK 설치
+5. SageMaker Github example 복제
