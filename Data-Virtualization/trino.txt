@@ -1,2 +1,14 @@
 1. To run trino container in local network.
   >>docker run --name trino3 -d --net host trinodb/trino
+
+1) cat > google-sheets-credentials.json
+이 크리덴셜파일은 GCP IAM의 서비스계정 추가 후 Key 발급한 json 파일이다.
+예) trinobot@api*.iam.gserviceaccount.com 
+
+2) cat > google.properties
+connector.name=gsheets
+gsheets.credentials-path=/data/trino/etc/catalog/google-sheets-credentials.json
+gsheets.metadata-sheet-id=1Lqi0_3zFnxPrku8jXa0tz1fbPVAmrqgbIZv52ZKsw5g
+
+gsheets.metadata-sheet-id 값은 문서의 URL 중 ID 부분이며 Trino에서 샘플로 제공한 양식이다.
+이 ID의 문서는 trinobot@api*.iam.gserviceaccount.com 에게 공유가 되어있어야 조회가 된다.
