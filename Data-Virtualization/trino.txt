@@ -1,0 +1,2 @@
+1. To run trino container in local network.
+  >>docker run --name trino3 -d --net host trinodb/trino
