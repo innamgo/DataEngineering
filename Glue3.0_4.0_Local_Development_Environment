@@ -3,3 +3,7 @@ SET AWS_CONFIG=C:\Users\kal\.aws
 SET JUPYTER_WORKSPACE_LOCATION=D:\dockershare\
 docker run -it -v %AWS_CONFIG%:/home/glue_user/.aws -v %JUPYTER_WORKSPACE_LOCATION%:/home/glue_user/workspace/jupyter_workspace/ -e AWS_PROFILE=default -e DISABLE_SSL=true --rm -p 4040:4040 -p 18080:18080 -p 8998:8998 -p 8888:8888 --name glue_jupyter_lab amazon/aws-glue-libs:glue_libs_4.0.0_image_01 /home/glue_user/jupyter/jupyter_start.sh
 
+2. 원격접속 설정
+> jupyter lab --generate-config
+
+jupyter_notebook_config.py 파일에 c.NotebookApp.allow_origin = '*' 추가해야 함
