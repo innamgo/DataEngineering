@@ -7,3 +7,29 @@ docker run -it -v %AWS_CONFIG%:/home/glue_user/.aws -v %JUPYTER_WORKSPACE_LOCATI
 > jupyter lab --generate-config
 
 jupyter_notebook_config.py 파일에 c.NotebookApp.allow_origin = '*' 추가해야 함
+
+3. Iceberg 설정하기
+/home/glue_user/spark/conf/spark-defaults.conf
+아래 내용 추가
+spark.jars.packages     org.apache.iceberg:iceberg-spark-runtime-3.3_2.12:1.0.0
+
+노트북 샘플 소스
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder \
+    .appName("Iceberg Merge Example") \
+    .config("spark.sql.catalog.spark_catalog", "org.apache.iceberg.spark.SparkSessionCatalog") \
+    .config("spark.sql.catalog.spark_catalog.type", "hive") \
+    .config("spark.sql.catalog.local", "org.apache.iceberg.spark.SparkCatalog") \
+    .config("spark.sql.catalog.local.type", "hadoop") \
+    .config("spark.sql.catalog.local.warehouse", "/home/glue_user/lakehouse") \
+    .config("spark.sql.extensions", "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions") \
+    .getOrCreate()
+
+new_data = [
+    (1, "Alice", 29),
+    (2, "Bob", 35)
+]
+new_df = spark.createDataFrame(new_data, ["id", "name", "age"])
+
+new_df.writeTo("local.default.acid_test").create()
