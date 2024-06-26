@@ -11,7 +11,7 @@ jupyter_notebook_config.py 파일에 c.NotebookApp.allow_origin = '*' 추가해�
 3. Iceberg 설정하기
 /home/glue_user/spark/conf/spark-defaults.conf
 아래 내용 추가
-spark.jars.packages     org.apache.iceberg:iceberg-spark-runtime-3.3_2.12:1.0.0
+spark.jars.packages     org.apache.iceberg:iceberg-spark-runtime-3.3_2.12:1.0.0,org.postgresql:postgresql:42.0.0
 
 노트북 샘플 소스
 from pyspark.sql import SparkSession
