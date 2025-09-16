@@ -87,3 +87,19 @@ SELECT
 FROM pg_group, pg_user 
 WHERE pg_user.usesysid = ANY(pg_group.grolist) 
 ORDER BY 1,2 
+
+5. Grant, Revoke Role
+--사용자에 적용된 Role 보기
+select * from svv_user_grants;
+
+--사용자를 Role에서 제외하기
+REVOKE Role masking_role FROM pssdev;
+
+show grants for pssdev;
+
+6. Grant, Revoke Column Select
+
+grant select on table 스키마.테이블 to 유저명;
+grant select (col1, col2) on table 스키마.테이블 to 유저명;
+revoke select on 스키마.테이블 from 유저명;
+revoke select (col1, col2) on 스키마.테이블 from 유저명;
